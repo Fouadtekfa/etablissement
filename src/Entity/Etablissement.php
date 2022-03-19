@@ -43,7 +43,7 @@ class Etablissement
     #[ORM\Column(type: 'string', length: 255)]
     private $academie;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'datetime')]
     private $date_ouverture;
 
     public function getId(): ?int
