@@ -1,23 +1,51 @@
-{% extends 'base.html.twig' %}
+{% extends 'global.html.twig' %}
 
-{% block title %}Hello EtablissementsController!{% endblock %}
+{% block title %}
+    Page des etablissements
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% block content %}
 
-<div class="example-wrapper">
-    <h1>{{ controller_name }}! ✅</h1>
+    <div class="example-wrapper" style="align-text: center">
+        <h1>Etablissements  ! ✅</h1>
+        <table class="table col-6" style="margin: 0 auto">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Appellation Officielle</th>
+                    <th>Denomination Principale</th>
+                    <th>Secteur</th>
+                    <th>Latitude</th>
+                    <th>longitude</th>
+                    <th>adresse</th>
+                    <th>departement</th>
+                    <th>commune</th>
+                    <th>region</th>
+                    <th>academie</th>
+                    <th>date_ouverture</th>
+                </tr>
+            <tbody>
+                {% for etablissement in etablissements %}
+                <tr>
+                    <td>{{ etablissement.id }}</td>
+                    <td><a href="{{ url('etablissement' , { id : etablissement.id}) }}">{{ etablissement.appellation_officielle }}</a></td>
+                    <td>{{ etablissement.denomination_principale }}</td>
+                    <td>{{ etablissement.secteur }}</td>
+                    <td>{{ etablissement.latitude }}</td>
+                    <td>{{ etablissement.longitude }}</td>
+                    <td>{{ etablissement.adresse }}</td>
+                    <td>{{ etablissement.departement }}</td>
+                    <td>{{ etablissement.commune }}</td>
+                    <td>{{ etablissement.region }}</td>
+                    <td>{{ etablissement.academie }}</td>
+                    <td>{{ etablissement.date_ouverture }}</td>
+                </tr>
 
-    <table>
-        <tr>
-        <th>NOM</th>
-        </tr>
-        <tr>
-            <td><a href="{{ url('etablissement' , { id : 7}) }}">Etablissement 7</a></td>
-        </tr>
-    </table>
-</div>
+                {% endfor %}
+            </tbody>   
+        </table>
+    </div>
+    {% endblock %}
+
 {% endblock %}
