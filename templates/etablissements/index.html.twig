@@ -9,12 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>{{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/etablissement/src/Controller/EtablissementsController.php'|file_link(0) }}">src/Controller/EtablissementsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/etablissement/templates/etablissements/index.html.twig'|file_link(0) }}">templates/etablissements/index.html.twig</a></code></li>
-    </ul>
+    <table>
+        <tr>
+        <th>NOM</th>
+        </tr>
+        <tr>
+            <td><a href="{{ url('etablissement' , { id : 7}) }}">Etablissement 7</a></td>
+        </tr>
+    </table>
 </div>
 {% endblock %}
