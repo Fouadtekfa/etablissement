@@ -8,9 +8,8 @@
 
     {% block content %}
         <div class="example-wrapper">
+            <button type="button" class="btn btn-primary retour"><a href=" {{ url("etablissements") }}" style="color : white">Retour</a></button>
             <h1>Etablissement {{ id_etablissement }}! ✅</h1>
-
-            <a href=" {{ url("etablissements") }}">Retour</a>
         </div>
     {% endblock %}
 {% endblock %}
