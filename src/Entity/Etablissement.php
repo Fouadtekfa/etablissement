@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EtablissementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EtablissementRepository::class)]
@@ -45,6 +47,14 @@ class Etablissement
 
     #[ORM\Column(type: 'datetime')]
     private $date_ouverture;
+
+    #[ORM\OneToMany(mappedBy: 'etablissement', targetEntity: Commentaires::class)]
+    private $commentaires;
+
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -179,6 +189,36 @@ class Etablissement
     public function setDateOuverture(\DateTimeInterface $date_ouverture): self
     {
         $this->date_ouverture = $date_ouverture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaires>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setEtablissement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getEtablissement() === $this) {
+                $commentaire->setEtablissement(null);
+            }
+        }
 
         return $this;
     }

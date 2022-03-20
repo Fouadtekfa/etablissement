@@ -25,6 +25,9 @@ class Commentaires
     #[ORM\Column(type: 'integer')]
     private $note;
 
+    #[ORM\ManyToOne(targetEntity: Etablissement::class, inversedBy: 'commentaires')]
+    private $etablissement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Commentaires
     public function setNote(int $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getEtablissement(): ?Etablissement
+    {
+        return $this->etablissement;
+    }
+
+    public function setEtablissement(?Etablissement $etablissement): self
+    {
+        $this->etablissement = $etablissement;
 
         return $this;
     }
