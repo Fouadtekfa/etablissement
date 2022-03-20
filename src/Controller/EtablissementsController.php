@@ -33,4 +33,33 @@ class EtablissementsController extends AbstractController
         ]);
     }
 
+    #[Route('/etablissements/departement/{id}', name: 'departement')]
+    public function departement($id): Response
+    {
+        return $this->render('etablissements/departement.html.twig', [
+            'code_departement' => $id,
+        ]);
+    }
+    #[Route('/etablissements/region/{id}', name: 'region')]
+    public function region($id): Response
+    {
+        return $this->render('etablissements/region.html.twig', [
+            'code_region' => $id,
+        ]);
+    }
+    #[Route('/etablissements/academie/{id}', name: 'academie')]
+    public function academie($id): Response
+    {
+        return $this->render('etablissements/academie.html.twig', [
+            'code_academie' => $id,
+        ]);
+    }
+    #[Route('/etablissements/commune/{id}', name: 'commune')]
+    public function commune($id): Response
+    {
+        return $this->render('etablissements/commune.html.twig', [
+            'code_commune' => $id,
+        ]);
+    }
+
 }

@@ -43,9 +43,17 @@ class AppFixtures extends Fixture
                 $etablissement->setLongitude(floatval($data[15]));
                 $etablissement->setAdresse($data[5]);
                 $etablissement->setDepartement($data[26]);
+                $etablissement->setCodeDepartement($data[22]);
+
                 $etablissement->setCommune($data[10]);
+                $etablissement->setCodeCommune($data[25]);
+                
                 $etablissement->setRegion($data[27]);
+                $etablissement->setCodeRegion($data[23]);
+
                 $etablissement->setAcademie($data[28]);
+                $etablissement->setCodeAcademie($data[24]);
+
                 $etablissement->date_ouverture = \DateTime::createFromFormat('j/m/Y', $data[34]);
                 /*print("Appelation : " .$etablissement->getAppellationOfficielle(). PHP_EOL);
                 print("Denomination : " .$etablissement->getDenominationPrincipale(). PHP_EOL);

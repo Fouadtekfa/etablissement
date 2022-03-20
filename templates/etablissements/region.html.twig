@@ -1,0 +1,15 @@
+{% extends 'global.html.twig' %}
+
+{% block title %}
+    Region
+{% endblock %}
+
+{% block body %}
+
+    {% block content %}
+        <div class="example-wrapper">
+            <button type="button" class="btn btn-primary retour"><a href=" {{ url("etablissements") }}" style="color : white">Retour</a></button>
+            <h1>Region {{ code_region }}! ✅</h1>
+        </div>
+    {% endblock %}
+{% endblock %}

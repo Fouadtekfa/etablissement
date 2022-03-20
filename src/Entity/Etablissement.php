@@ -38,13 +38,25 @@ class Etablissement
     private $departement;
 
     #[ORM\Column(type: 'string', length: 255)]
+    public $code_departement;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private $commune;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    public $code_commune;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $region;
 
     #[ORM\Column(type: 'string', length: 255)]
+    public $code_region;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private $academie;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    public $code_academie;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     public $date_ouverture;
@@ -152,6 +164,18 @@ class Etablissement
         return $this;
     }
 
+    public function getCodeDepartement(): ?string
+    {
+        return $this->code_departement;
+    }
+
+    public function setCodeDepartement(string $code_departement): self
+    {
+        $this->code_departement = $code_departement;
+
+        return $this;
+    }
+
     public function getCommune(): ?string
     {
         return $this->commune;
@@ -160,6 +184,18 @@ class Etablissement
     public function setCommune(string $commune): self
     {
         $this->commune = $commune;
+
+        return $this;
+    }
+
+    public function getCodeCommune(): ?string
+    {
+        return $this->code_commune;
+    }
+
+    public function setCodeCommune(string $code_commune): self
+    {
+        $this->code_commune = $code_commune;
 
         return $this;
     }
@@ -176,6 +212,18 @@ class Etablissement
         return $this;
     }
 
+    public function getCodeRegion(): ?string
+    {
+        return $this->code_region;
+    }
+
+    public function setCodeRegion(string $code_region): self
+    {
+        $this->code_region = $code_region;
+
+        return $this;
+    }
+
     public function getAcademie(): ?string
     {
         return $this->academie;
@@ -184,6 +232,18 @@ class Etablissement
     public function setAcademie(string $academie): self
     {
         $this->academie = $academie;
+
+        return $this;
+    }
+
+    public function getCodeAcademie(): ?string
+    {
+        return $this->code_academie;
+    }
+
+    public function setCodeAcademie(string $code_academie): self
+    {
+        $this->code_academie = $code_academie;
 
         return $this;
     }
