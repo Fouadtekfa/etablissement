@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Etablissement;
+use App\Entity\Commentaires;
 use http\Message\Body;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,9 +12,12 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class EtablissementsController extends AbstractController
 {
+    private EntityManagerInterface $em;
+
     #[Route('/etablissements', name: 'etablissements', methods: 'GET')]
     public function index(EntityManagerInterface $em): Response
     {
+        $this->em = $em;
         $repostories = $em->getRepository(Etablissement::class)->findAll();
         $arrObj = [];
         foreach($repostories as $cle => $re) {
@@ -26,10 +30,15 @@ class EtablissementsController extends AbstractController
     }
 
     #[Route('/etablissement/{id}', name: 'etablissement')]
-    public function etablissement($id): Response
+    public function etablissement($id, EntityManagerInterface $em): Response
     {
-        return $this->render('etablissements/etablissement.html.twig', [
+        $com = $em->getRepository(Commentaires::class)->findOneBy(['etablissement'  => $id]);
+
+        $com->date_commentaire = $com->date_commentaire->format('d/m/Y');
+        
+           return $this->render('etablissements/etablissement.html.twig', [
             'id_etablissement' => $id,
+            'commentaire' => $com
         ]);
     }
 

@@ -17,7 +17,7 @@ class Commentaires
     private $auteur;
 
     #[ORM\Column(type: 'datetime')]
-    private $date_commentaire;
+    public $date_commentaire;
 
     #[ORM\Column(type: 'text')]
     private $commentaire;
