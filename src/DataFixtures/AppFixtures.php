@@ -32,7 +32,18 @@ class AppFixtures extends Fixture
             }
             fclose($h);
         }
-
+        $faker = Faker\Factory::create('fr_FR');
+        $commentaires=[];
+        for ($i = 0; $i < 100; $i++) {
+            $commentaire = new Commentaires();
+            $commentaire->setAuteur($faker->lastName);
+            $commentaire->setCommentaire($faker->realText(200));
+            $commentaire->setNote($faker->numberBetween(0,4));
+            $commentaire->setDateCommentaire(new \DateTime());
+            // $etablissement->setEtablissement($etablissement[$faker->numberBetween(0,90)]);
+            $manager->persist($commentaire);
+            $commentaires []= $commentaire;
+        }
         foreach($donnees as $donnee) {
                 $d = $donnee[0];
                 $data = explode(";", $d);
@@ -57,6 +68,7 @@ class AppFixtures extends Fixture
                 $etablissement->setCodeAcademie($data[24]);
 
                 $etablissement->date_ouverture = \DateTime::createFromFormat('j/m/Y', $data[34]);
+                $etablissement->addCommentaire($commentaires[$faker->numberBetween(0,98)]);
                 /*print("Appelation : " .$etablissement->getAppellationOfficielle(). PHP_EOL);
                 print("Denomination : " .$etablissement->getDenominationPrincipale(). PHP_EOL);
                 print("Secteur : " .$etablissement->getSecteur(). PHP_EOL);
@@ -74,18 +86,7 @@ class AppFixtures extends Fixture
 
         }
 
-        $faker = Faker\Factory::create('fr_FR');
-        $commentaires=[];
-        for ($i = 0; $i < 150; $i++) {
-            $commentaire = new Commentaires();
-            $commentaire->setAuteur($faker->lastName);
-            $commentaire->setCommentaire($faker->realText(200));
-            $commentaire->setNote($faker->numberBetween(0,4));
-            $commentaire->setDateCommentaire(new \DateTime());
-         //   $etablissement->setEtablissement($donnees[$faker->numberBetween(515,550)]);
-            $manager->persist($commentaire);
-            $commentaires []= $commentaire;
-        }
+
 
         $manager->flush();
 
