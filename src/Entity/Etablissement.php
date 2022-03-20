@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\EtablissementRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -54,6 +55,7 @@ class Etablissement
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->date_ouverture = date_create('today');
     }
 
     public function getId(): ?int
