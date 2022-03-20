@@ -43,8 +43,8 @@ class Etablissement
     #[ORM\Column(type: 'string', length: 255)]
     private $academie;
 
-    #[ORM\Column(type: 'datetime')]
-    private $date_ouverture;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    public $date_ouverture;
 
     public function getId(): ?int
     {
@@ -171,14 +171,17 @@ class Etablissement
         return $this;
     }
 
-    public function getDateOuverture(): ?\DateTimeInterface
+    public function getDateOuverture()
     {
-        return $this->date_ouverture;
+        return $this->date_ouverture->format('d/m/Y');
     }
 
-    public function setDateOuverture(\DateTimeInterface $date_ouverture): self
+    public function setDateOuverture($date_ouverture): self
     {
-        $this->date_ouverture = $date_ouverture;
+        $this->date_ouverture  = $date_ouverture; //new \DateTime('11/12/1996');
+      //  $this->date_ouverture =new \DateTime(\DateTime::createFromFormat('d/m/Y', $date_ouverture)->format('d/m/Y'));
+       /* $date = new \DateTime($date_ouverture);
+        $this->date_ouverture = $date;*/
 
         return $this;
     }
