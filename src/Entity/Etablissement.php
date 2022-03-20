@@ -14,13 +14,13 @@ class Etablissement
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    public $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $appellation_officielle;
+    public $appellation_officielle;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $denomination_principale;
+    public $denomination_principale;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $secteur;
@@ -56,6 +56,11 @@ class Etablissement
     {
         $this->commentaires = new ArrayCollection();
         $this->date_ouverture = date_create('today');
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     public function getId(): ?int

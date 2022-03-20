@@ -15,10 +15,9 @@ class AppFixtures extends Fixture
     */
     public $date;
 
+
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
         $filename = 'src/DataFixtures/etablissements.csv';
 
         $donnees = [];
@@ -35,7 +34,7 @@ class AppFixtures extends Fixture
         foreach($donnees as $donnee) {
                 $d = $donnee[0];
                 $data = explode(";", $d);
-                print_r($data);
+                //print_r($data);
                 $etablissement = new Etablissement();
                 $etablissement->setAppellationOfficielle($data[1]);
                 $etablissement->setDenominationPrincipale($data[2]);
@@ -48,7 +47,7 @@ class AppFixtures extends Fixture
                 $etablissement->setRegion($data[27]);
                 $etablissement->setAcademie($data[28]);
                 $etablissement->date_ouverture = \DateTime::createFromFormat('j/m/Y', $data[34]);
-                print("Appelation : " .$etablissement->getAppellationOfficielle(). PHP_EOL);
+                /*print("Appelation : " .$etablissement->getAppellationOfficielle(). PHP_EOL);
                 print("Denomination : " .$etablissement->getDenominationPrincipale(). PHP_EOL);
                 print("Secteur : " .$etablissement->getSecteur(). PHP_EOL);
                 print("Latitude : " .$etablissement->getLatitude(). PHP_EOL);
@@ -58,12 +57,15 @@ class AppFixtures extends Fixture
                 print("Commune : " .$etablissement->getCommune(). PHP_EOL);
                 print("Region : " .$etablissement->getRegion(). PHP_EOL);
                 print("Academie : " .$etablissement->getAcademie(). PHP_EOL);
-                print("Date : " .$etablissement->getDateOuverture(). PHP_EOL);
+                print("Date : " .$etablissement->getDateOuverture(). PHP_EOL);*/
 
-                print( PHP_EOL .  PHP_EOL);
-                $manager->persist($etablissement);
+                //print( PHP_EOL .  PHP_EOL);
+                 $manager->persist($etablissement);
 
         }
        $manager->flush();
+
     }
+
+    
 }

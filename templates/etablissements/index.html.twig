@@ -17,13 +17,13 @@
                     <th>Denomination Principale</th>
                     <th>Secteur</th>
                     <th>Latitude</th>
-                    <th>longitude</th>
-                    <th>adresse</th>
-                    <th>departement</th>
-                    <th>commune</th>
-                    <th>region</th>
-                    <th>academie</th>
-                    <th>date_ouverture</th>
+                    <th>Longitude</th>
+                    <th>Adresse</th>
+                    <th>Departement</th>
+                    <th>Commune</th>
+                    <th>Region</th>
+                    <th>Academie</th>
+                    <th>Date Ouverture</th>
                 </tr>
             <tbody>
                 {% for etablissement in etablissements %}
@@ -38,8 +38,9 @@
                     <td>{{ etablissement.departement }}</td>
                     <td>{{ etablissement.commune }}</td>
                     <td>{{ etablissement.region }}</td>
-                    <td>{{ etablissement.academie }}</td>
-                    <td>{{ etablissement.date_ouverture }}</td>
+                    <td>{{ etablissement.academie}}</td>
+                    <td>{{ etablissement.date_ouverture}}</td>
+                    
                 </tr>
 
                 {% endfor %}
