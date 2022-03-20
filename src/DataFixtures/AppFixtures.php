@@ -3,8 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Etablissement;
+use App\Entity\Commentaires;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
 
 class AppFixtures extends Fixture
 {
@@ -71,7 +73,21 @@ class AppFixtures extends Fixture
                  $manager->persist($etablissement);
 
         }
-       $manager->flush();
+
+        $faker = Faker\Factory::create('fr_FR');
+        $commentaires=[];
+        for ($i = 0; $i < 150; $i++) {
+            $commentaire = new Commentaires();
+            $commentaire->setAuteur($faker->lastName);
+            $commentaire->setCommentaire($faker->realText(200));
+            $commentaire->setNote($faker->numberBetween(0,4));
+            $commentaire->setDateCommentaire(new \DateTime());
+         //   $etablissement->setEtablissement($donnees[$faker->numberBetween(515,550)]);
+            $manager->persist($commentaire);
+            $commentaires []= $commentaire;
+        }
+
+        $manager->flush();
 
     }
 
