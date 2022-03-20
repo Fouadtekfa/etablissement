@@ -34,21 +34,16 @@ class AppFixtures extends Fixture
         }
         $faker = Faker\Factory::create('fr_FR');
         $commentaires=[];
-        for ($i = 0; $i < 100; $i++) {
-            $commentaire = new Commentaires();
-            $commentaire->setAuteur($faker->lastName);
-            $commentaire->setCommentaire($faker->realText(200));
-            $commentaire->setNote($faker->numberBetween(0,4));
-            $commentaire->setDateCommentaire(new \DateTime());
-            // $etablissement->setEtablissement($etablissement[$faker->numberBetween(0,90)]);
-            $manager->persist($commentaire);
-            $commentaires []= $commentaire;
-        }
+        //for ($i = 0; $i < 100; $i++) {
+        //}
+        $i = 0;
+        $n = 0;
         foreach($donnees as $donnee) {
+                $i++;
                 $d = $donnee[0];
                 $data = explode(";", $d);
-                //print_r($data);
                 $etablissement = new Etablissement();
+                $etablissement->setId($i);
                 $etablissement->setAppellationOfficielle($data[1]);
                 $etablissement->setDenominationPrincipale($data[2]);
                 $etablissement->setSecteur($data[4]);
@@ -68,7 +63,7 @@ class AppFixtures extends Fixture
                 $etablissement->setCodeAcademie($data[24]);
 
                 $etablissement->date_ouverture = \DateTime::createFromFormat('j/m/Y', $data[34]);
-                $etablissement->addCommentaire($commentaires[$faker->numberBetween(0,98)]);
+               // $etablissement->addCommentaire($commentaires[$i]);
                 /*print("Appelation : " .$etablissement->getAppellationOfficielle(). PHP_EOL);
                 print("Denomination : " .$etablissement->getDenominationPrincipale(). PHP_EOL);
                 print("Secteur : " .$etablissement->getSecteur(). PHP_EOL);
@@ -82,8 +77,17 @@ class AppFixtures extends Fixture
                 print("Date : " .$etablissement->getDateOuverture(). PHP_EOL);*/
 
                 //print( PHP_EOL .  PHP_EOL);
-                 $manager->persist($etablissement);
-
+                $manager->persist($etablissement);
+                $commentaire = new Commentaires();
+                $commentaire->setAuteur($faker->lastName);
+                $commentaire->setCommentaire($faker->realText(200));
+                $commentaire->setNote($faker->numberBetween(0,4));
+                $commentaire->setDateCommentaire(new \DateTime());
+                // $etablissement->setEtablissement($etablissement[$faker->numberBetween(0,90)]);
+                $commentaire->setEtablissement($etablissement);
+                $manager->persist($commentaire);
+                $commentaires []= $commentaire;
+                $n++;
         }
 
 
