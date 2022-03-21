@@ -26,6 +26,7 @@ class Commentaires
     private $note;
 
     #[ORM\ManyToOne(targetEntity: Etablissement::class, inversedBy: 'commentaires')]
+    #[ORM\Column(nullable:false)]
     private $etablissement;
 
     public function getId(): ?int
