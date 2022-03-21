@@ -32,9 +32,13 @@ class EtablissementsController extends AbstractController
     #[Route('/etablissement/{id}', name: 'etablissement')]
     public function etablissement($id, EntityManagerInterface $em): Response
     {
-        $com = $em->getRepository(Commentaires::class)->findOneBy(['etablissement'  => $id]);
+        $com = $em->getRepository(Commentaires::class)->findBy([
+            'etablissement'  => $id
+        ]);
 
-        $com->date_commentaire = $com->date_commentaire->format('d/m/Y');
+        foreach($com as $cle => $c) {
+            $c->date_commentaire = $c->date_commentaire->format('d/m/Y');
+        }
         
            return $this->render('etablissements/etablissement.html.twig', [
             'id_etablissement' => $id,
