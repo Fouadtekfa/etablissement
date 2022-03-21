@@ -16,8 +16,7 @@ class CommentairesType extends AbstractType
             ->add('date_commentaire')
             ->add('commentaire')
             ->add('note')
-            ->add('etablissement')
-        ;
+            ->add('etablissement');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
