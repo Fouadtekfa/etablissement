@@ -75,18 +75,24 @@ class AppFixtures extends Fixture
                 print("Region : " .$etablissement->getRegion(). PHP_EOL);
                 print("Academie : " .$etablissement->getAcademie(). PHP_EOL);
                 print("Date : " .$etablissement->getDateOuverture(). PHP_EOL);*/
-
-                //print( PHP_EOL .  PHP_EOL);
                 $manager->persist($etablissement);
-                $commentaire = new Commentaires();
-                $commentaire->setAuteur($faker->lastName);
-                $commentaire->setCommentaire($faker->realText(200));
-                $commentaire->setNote($faker->numberBetween(0,4));
-                $commentaire->setDateCommentaire(new \DateTime());
-                // $etablissement->setEtablissement($etablissement[$faker->numberBetween(0,90)]);
-                $commentaire->setEtablissement($etablissement);
-                $manager->persist($commentaire);
+                //print( PHP_EOL .  PHP_EOL);
+                $lim  = $faker->numberBetween(1,4);
+                for($i= 0; $i <= $lim ; $i++){
+                    $commentaire = new Commentaires();
+                    $commentaire->setAuteur($faker->lastName);
+                    $commentaire->setCommentaire($faker->realText(200));
+                    $commentaire->setNote($faker->numberBetween(0,4));
+                    $commentaire->setDateCommentaire(new \DateTime());
+                    // $etablissement->setEtablissement($etablissement[$faker->numberBetween(0,90)]);
+                    $lim  = $faker->numberBetween(1,4);
+                    $commentaire->setEtablissement($etablissement);
+                    $manager->persist($commentaire);
+                }
+                
+                
                 $commentaires []= $commentaire;
+                
                 $n++;
         }
 
