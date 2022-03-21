@@ -20,12 +20,14 @@
                     <th>Note</th>
                 </tr>
             <tbody>
+                {% for comm in commentaire %}
                 <tr>
-                    <td>{{ commentaire.auteur }}</td>
-                    <td>{{ commentaire.date_commentaire }}</td>
-                    <td>{{ commentaire.commentaire }}</td>
-                    <td>{{ commentaire.note }}</td>
+                    <td>{{ comm.auteur }}</td>
+                    <td>{{ comm.date_commentaire }}</td>
+                    <td>{{ comm.commentaire }}</td>
+                    <td>{{ comm.note }}</td>
                 </tr>
+                {% endfor %}
             </tbody>   
         </table>
         </div>
