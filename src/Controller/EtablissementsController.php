@@ -20,6 +20,7 @@ class EtablissementsController extends AbstractController
         $this->em = $em;
         $repostories = $em->getRepository(Etablissement::class)->findAll();
         $arrObj = [];
+        
         foreach($repostories as $cle => $re) {
             $re->date_ouverture = $re->date_ouverture->format('d/m/Y');
         }
