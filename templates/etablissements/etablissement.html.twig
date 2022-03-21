@@ -9,6 +9,7 @@
     {% block content %}
         <div class="example-wrapper">
             <button type="button" class="btn btn-primary retour"><a href=" {{ url("etablissements") }}" style="color : white">Retour</a></button>
+            <button type="button" class="btn btn-primary ajout"><a href=" {{ url("etablissements") }}" style="color : white">Ajouter</a></button>
             <h1>Etablissement {{ id_etablissement }}! ✅</h1>
 
             <table class="table col-6">
@@ -18,6 +19,7 @@
                     <th>Date</th>
                     <th>Commentaire</th>
                     <th>Note</th>
+                    <th>Actions</th>
                 </tr>
             <tbody>
                 {% for comm in commentaire %}
@@ -26,6 +28,10 @@
                     <td>{{ comm.date_commentaire }}</td>
                     <td>{{ comm.commentaire }}</td>
                     <td>{{ comm.note }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary modifier"><a href=" {{ url("etablissements") }}">Modifier</a></button>
+                        <button type="button" class="btn btn-primary supprimer"><a href=" {{ url("etablissements") }}" style="color : white">Supprimer</a></button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>   
