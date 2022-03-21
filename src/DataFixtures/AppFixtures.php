@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
                     $lim  = $faker->numberBetween(1,4);
                     $commentaire->setEtablissement($etablissement);
                     $manager->persist($commentaire);
-                }
+
                 
                 
                 $commentaires []= $commentaire;
