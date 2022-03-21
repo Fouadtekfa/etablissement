@@ -23,10 +23,11 @@ class Commentaires
     private $commentaire;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\Range(min:0, max:5)]
     private $note;
 
     #[ORM\ManyToOne(targetEntity: Etablissement::class, inversedBy: 'commentaires')]
-    #[ORM\Column(nullable:false)]
+
     private $etablissement;
 
     public function getId(): ?int
