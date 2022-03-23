@@ -30,7 +30,7 @@
                     <td>{{ comm.note }}</td>
                     <td>
                         <button type="button" class="btn btn-primary modifier"><a href=" {{ url("etablissements") }}">Modifier</a></button>
-                        <button type="button" class="btn btn-primary supprimer"><a href=" {{ url("etablissements") }}" style="color : white">Supprimer</a></button>
+                        <button type="button" class="btn btn-primary supprimer"><a href=" {{ url("commentaireSupprimer", { id_et : id_etablissement, id : comm.id }) }}" style="color : white">Supprimer</a></button>
                     </td>
                 </tr>
                 {% endfor %}

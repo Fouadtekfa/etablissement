@@ -76,4 +76,27 @@ class EtablissementsController extends AbstractController
         ]);
     }
 
+    // ============ COMMENTAIRES =======================
+    #[Route('/etablissement/{id_et}/commentaire/supprimer/{id}', name: 'commentaireSupprimer')]
+    public function commentaireSupprimer($id_et, $id,  EntityManagerInterface $em): Response
+    {
+        $com = $em->getRepository(Commentaires::class)->findOneBy([
+            'id'  => $id
+        ]);
+        
+        $em->remove($com);
+        $em->flush();
+        return $this->redirectToRoute('etablissement', [
+            'id' => $id_et
+        ]);
+    }
+
+    #[Route('/commentaire/modifier/{id}', name: 'commentaireModifier')]
+    public function commentaireModifier($id): Response
+    {
+        return $this->render('/commune.html.twig', [
+            'code_commune' => $id,
+        ]);
+    }
+
 }
