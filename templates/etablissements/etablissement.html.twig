@@ -9,7 +9,7 @@
     {% block content %}
         <div class="example-wrapper">
             <button type="button" class="btn btn-primary retour"><a href=" {{ url("etablissements") }}" style="color : white">Retour</a></button>
-            <button type="button" class="btn btn-primary ajout"><a href=" {{ url("etablissements") }}" style="color : white">Ajouter</a></button>
+            <button type="button" class="btn btn-primary ajout"><a href=" {{ url("commentaireCreate", { id_et : id_etablissement })     }}" style="color : white">Ajouter</a></button>
             <h1>Etablissement {{ id_etablissement }}! ✅</h1>
 
             <table class="table col-6">
