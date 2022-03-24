@@ -13,8 +13,12 @@
         html, body  {
             background-color: #D4D4D4;
         }
-
+        #formContainer {background-color: rgb(118, 118, 118, 30%); padding: 50px; margin-top:30px }
         button { margin-top: 20px; margin-left : 20px, width: 80px; height: 30px;}
+        #formContainer .contentContainerForm { background-color: rgb(225, 225, 225, 90%);border-radius: 20px; width: fit-content; padding: 50px; margin: 0 auto}
+        #formContainer .contentContainerForm .form_input{ margin-top: 10px; margin-bottom: 10px}
+        textarea, input { border-radius : 4px; height: 20px; width: 450px}
+        textarea { height: 200px}
         .retour { background-color: crimson}
         .ajout { background-color: green}
         .supprimer { background-color: red}
@@ -23,7 +27,8 @@
         a { text-decoration: none   }
         table { background-color :white; margin: 0 auto; margin-top : 50px ; border-collapse: collapse; border: 1px solid black; text-align: center }
         table tr, table td { border: 1px solid black}
-        h1 { text-align : center; }
+        h1 { text-align : center; };
+        
         
     </style>
     {% block body %}
