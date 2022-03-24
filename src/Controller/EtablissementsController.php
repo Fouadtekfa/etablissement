@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Form\EtablissementType;
 use App\Repository\CommentairesRepository;
 use App\Repository\EtablissementRepository;
 use Symfony\Config\DoctrineConfig;
@@ -106,6 +107,47 @@ class EtablissementsController extends AbstractController
         $em->flush();
         return $this->redirectToRoute('etablissements');
     }
+    // Formulaire ADD
+    #[Route('/etablissements/create', name: 'etablissementCreate')]
+    public function etablissementCreate(HttpFoundationRequest $request,  EntityManagerInterface $em): Response
+    {
+        $etablissement = new Etablissement();
+        $etablissement->setDateOuverture(new \DateTime());
+        $form = $this->createFormBuilder($etablissement)
+               ->add('appellation_officielle')
+                ->add('denomination_principale')
+                ->add('secteur')
+                ->add('latitude')
+                ->add('longitude')
+                ->add('adresse')
+                ->add('departement')
+                ->add('code_departement')
+                ->add('commune')
+                ->add('code_commune')
+                ->add('region')
+                ->add('code_region')
+                ->add('academie')
+                ->add('code_academie')
+                ->getForm();
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&& $form->isValid()){
+
+            $em->persist($etablissement);
+            $em->flush();
+            return $this->redirectToRoute('etablissements/index.html.twig');
+
+        }
+        return $this->render('etablissements/createEtablissement.html.twig', [
+            'form'=> $form->createView(),
+
+        ]);
+
+
+
+
+    }
+
 
     // ============ COMMENTAIRES =======================
 
