@@ -1,0 +1,40 @@
+{% extends 'global.html.twig' %}
+
+{% block title %}
+    Update Commentaire
+{% endblock %}
+
+{% block body %}
+
+    {% block content %}
+     <div class="example-wrapper">
+            <button type="button" class="btn btn-primary retour"><a href=" {{ url('etablissement' , { id : etablissement}) }}" style="color : white">Retour</a></button>
+            <div class="containerForm">
+                {{ form_start(form)}}
+                   <div class="form-title">
+                    {{ form_label(form.auteur)}}
+                    {{ form_widget(form.auteur)}}
+                </div>
+                <div class="form_content">
+                    {{ form_label(form.date_commentaire) }}
+                    {{ form_widget(form.date_commentaire) }}
+                </div>
+                <div class="form-title">
+                    {{ form_label(form.commentaire)}}
+                    {{ form_widget(form.commentaire)}}
+                </div>
+                <div class="form_content">
+                    {{ form_label(form.note) }}
+                    {{ form_widget(form.note) }}
+                </div>
+                <div class="submitContent">
+                    <button>Submit</button>
+                </div>
+
+        {{ form_end(form) }}
+    </div>
+    </div>        
+
+
+    {% endblock %}
+{% endblock %}
