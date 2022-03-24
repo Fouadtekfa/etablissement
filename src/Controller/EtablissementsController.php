@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\UserType;
 
 class EtablissementsController extends AbstractController
 {
@@ -74,6 +75,11 @@ class EtablissementsController extends AbstractController
         return $this->render('etablissements/commune.html.twig', [
             'code_commune' => $id,
         ]);
+    }
+    #[Route('/etablissements/supprimer/{id}', name: 'etablissementsupprimer')]
+    public function etablissementsup($ta): Response
+    {
+
     }
 
 }
