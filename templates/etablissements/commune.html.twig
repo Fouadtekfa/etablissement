@@ -14,14 +14,41 @@
         <div class="example-wrapper">
             <button type="button" class="btn btn-primary retour"><a href=" {{ url("etablissements") }}" style="color : white">Retour</a></button>
             <h1>Commune {{ code_commune }}! ✅</h1>
-            <div id="prr" value="hola">hola</div>
-            <div id="lat" value="{{ etablissement[0].latitude }}"></div>
-            <div id="lon" value="{{ etablissement[0].longitude }}"></div>
-            <div id="nom" value="{{ etablissement[0].appellation_officielle }}"></div>
-
-            
-            <div id="map" style="height: 500px;"></div>
+            <div id="lat" hidden>{{ etablissement[0].latitude }}</div>
+            <div id="lon" hidden >{{ etablissement[0].longitude }}</div>
+            <div id="nom" hidden >{{ etablissement[0].appellation_officielle }}</div>
+            <div id="map"></div>
         </div>
     {% endblock %}
 {% endblock %}
 
+    {% block script %}
+    <script>
+        const draw_map = (data) => {  
+        const map = L.map('map')
+            .fitBounds(data.map((d) => [d.lat,d.lon]))
+            .addLayer(L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }));
+        data.forEach((etablissement) => {
+            L.marker([etablissement.lat, etablissement.lon]).addTo(map).bindPopup("<b>"+etablissement.nom+"</b>");
+        });
+        };
+
+        let lat = document.getElementById('lat').innerHTML;
+        lat = lat.replace(',', '.');
+        
+        let lon = document.getElementById('lon').innerHTML;
+        lon = lon.replace(',', '.');
+
+        const data = [
+            {
+                nom: document.getElementById('nom').innerHTML,
+                lat: lat,
+                lon: lon
+            }
+        ];
+        draw_map(data);
+    </script>
+
+    {% endblock %}

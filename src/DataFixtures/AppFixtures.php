@@ -20,13 +20,14 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $filename = 'src/DataFixtures/etablissements.csv';
+        //$filename = 'src/DataFixtures/etablissements.csv';
+        $filename = 'src/DataFixtures/etab.csv';
 
         $donnees = [];
 
         $i = 0;
         if (($h = fopen((string)($filename), 'r')) !== FALSE) {
-            while (($data = fgetcsv($h, 100000, "*")) !== FALSE) {
+            while ($i<100 && ($data = fgetcsv($h, 100000, "\n")) !== FALSE) {
                 if($i>1) $donnees[] = $data;
                 $i++;
             }
@@ -36,6 +37,7 @@ class AppFixtures extends Fixture
         $commentaires=[];
         //for ($i = 0; $i < 100; $i++) {
         //}
+        
         $i = 0;
         $n = 0;
         foreach($donnees as $donnee) {
@@ -61,8 +63,12 @@ class AppFixtures extends Fixture
 
                 $etablissement->setAcademie($data[28]);
                 $etablissement->setCodeAcademie($data[24]);
-
-                $etablissement->date_ouverture = \DateTime::createFromFormat('j/m/Y', $data[34]);
+                $d = str_replace("-", "/", $data[34]);
+                $d = new \DateTime($d);
+                //$d = \DateTime::createFromFormat('j/m/Y', $d);
+                //echo ($d . PHP_EOL);
+                //echo (\DateTime::createFromFormat("j/m/Y",$d));
+                $etablissement->date_ouverture = $d; //\DateTime::createFromFormat('j/m/Y', $d);
                // $etablissement->addCommentaire($commentaires[$i]);
                 /*print("Appelation : " .$etablissement->getAppellationOfficielle(). PHP_EOL);
                 print("Denomination : " .$etablissement->getDenominationPrincipale(). PHP_EOL);
