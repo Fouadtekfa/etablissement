@@ -98,6 +98,14 @@ class EtablissementsController extends AbstractController
         {
             $crud = $em->getRepository(Commentaires::class)->find($id);
             $form = $this->createForm(CommentairesType::class, $crud);
+            
+            $crud->setDateCommentaire(new \DateTime());
+            $form = $this->createFormBuilder($crud)
+                ->add('auteur')
+                ->add('commentaire')
+                ->add('note')
+                ->getForm();
+            
             $form->handleRequest($request);
             
             if($form->isSubmitted() && $form->isValid()) {
