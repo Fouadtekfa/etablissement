@@ -30,7 +30,6 @@ class EtablissementsController extends AbstractController
     {
         $this->em = $em;
         $repostories = $em->getRepository(Etablissement::class)->findAll();
-        $arrObj = [];
         
         foreach($repostories as $cle => $re) {
             $re->date_ouverture = $re->date_ouverture->format('d/m/Y');
@@ -79,11 +78,21 @@ class EtablissementsController extends AbstractController
             'code_academie' => $id,
         ]);
     }
-    #[Route('/etablissements/commune/{id}', name: 'commune')]
-    public function commune($id): Response
+    #[Route('/etablissements/{id_et}/commune/{id}', name: 'commune')]
+    public function commune($id_et, $id, EntityManagerInterface $em): Response
     {
+        /*$etab = $em->getRepository(Etablissement::class)->findOneBy([
+            'id'  => $id_et
+        ]);*/
+
+        $et = $em->getRepository(Etablissement::class)->findBy([
+            'id'  => $id_et
+        ]);
+
+
         return $this->render('etablissements/commune.html.twig', [
             'code_commune' => $id,
+            'etablissement' => $et
         ]);
     }
     #[Route('/etablissements/supprimer/{id}', name: 'etablissementsupprimer')]
@@ -106,8 +115,16 @@ class EtablissementsController extends AbstractController
         {
             $crud = $em->getRepository(Commentaires::class)->find($id);
             $form = $this->createForm(CommentairesType::class, $crud);
+            
+            $crud->setDateCommentaire(new \DateTime());
+            $form = $this->createFormBuilder($crud)
+                ->add('auteur')
+                ->add('commentaire')
+                ->add('note')
+                ->getForm();
+            
             $form->handleRequest($request);
-
+            
             if($form->isSubmitted() && $form->isValid()) {
                 $em->persist($crud);
                 $em->flush();
@@ -119,6 +136,41 @@ class EtablissementsController extends AbstractController
             return $this->render('commentaires/updateComment.html.twig', [
                 'form'=> $form->createView(),
                 'etablissement'=> $id_et
+            ]);
+        }
+
+        // Formulaire ADD
+        #[Route('/etablissement/{id_et}/commentaire/create', name: 'commentaireCreate')]
+        public function commentaireCreate(HttpFoundationRequest $request, $id_et,  EntityManagerInterface $em): Response
+        {
+            $crud = new Commentaires();
+            $etab = $em->getRepository(Etablissement::class)->findOneBy([
+                'id'  => $id_et
+            ]);
+            $crud->setEtablissement($etab);
+            $crud->setDateCommentaire(new \DateTime());
+            $form = $this->createFormBuilder($crud)
+                ->add('auteur')
+                //->add('date_commentaire')
+                ->add('commentaire')
+                ->add('note')
+                //->setMethod("GET")
+                ->getForm();
+
+            //$form = $this->createForm(CommentairesType::class, $crud);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $em->persist($crud);
+                $em->flush();
+
+                return $this->redirectToRoute('etablissement', [
+                    'id' => $id_et
+                ]);}
+
+            return $this->render('commentaires/createComment.html.twig', [
+                'form'=> $form->createView(),
+                'id_etablissement' => $id_et
             ]);
         }
 
