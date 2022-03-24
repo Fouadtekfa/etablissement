@@ -39,7 +39,7 @@
                     <td>{{ etablissement.longitude }}</td>
                     <td>{{ etablissement.adresse }}</td>
                     <td><a href="{{ url('departement' , { id : etablissement.code_departement })}}">{{ etablissement.departement }}</a></td>
-                    <td><a href="{{ url('commune' , { id : etablissement.code_commune}) }}">{{ etablissement.commune }}</a></td>
+                    <td><a href="{{ url('commune' , { id_et : etablissement.id, id : etablissement.code_commune}) }}">{{ etablissement.commune }}</a></td>
                     <td><a href="{{ url('region' , { id : etablissement.code_region}) }}">{{ etablissement.region }}</a></td>
                     <td><a href="{{ url('academie' , { id : etablissement.code_academie}) }}">{{ etablissement.academie}}</a></td>
                     <td>{{ etablissement.date_ouverture}}</td>

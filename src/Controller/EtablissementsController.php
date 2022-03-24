@@ -27,7 +27,6 @@ class EtablissementsController extends AbstractController
     {
         $this->em = $em;
         $repostories = $em->getRepository(Etablissement::class)->findAll();
-        $arrObj = [];
         
         foreach($repostories as $cle => $re) {
             $re->date_ouverture = $re->date_ouverture->format('d/m/Y');
@@ -76,11 +75,21 @@ class EtablissementsController extends AbstractController
             'code_academie' => $id,
         ]);
     }
-    #[Route('/etablissements/commune/{id}', name: 'commune')]
-    public function commune($id): Response
+    #[Route('/etablissements/{id_et}/commune/{id}', name: 'commune')]
+    public function commune($id_et, $id, EntityManagerInterface $em): Response
     {
+        /*$etab = $em->getRepository(Etablissement::class)->findOneBy([
+            'id'  => $id_et
+        ]);*/
+
+        $et = $em->getRepository(Etablissement::class)->findBy([
+            'id'  => $id_et
+        ]);
+
+
         return $this->render('etablissements/commune.html.twig', [
             'code_commune' => $id,
+            'etablissement' => $et
         ]);
     }
     #[Route('/etablissements/supprimer/{id}', name: 'etablissementsupprimer')]

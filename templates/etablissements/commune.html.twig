@@ -4,12 +4,24 @@
     Commune
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""> </script>
+{% endblock %}
 {% block body %}
 
     {% block content %}
         <div class="example-wrapper">
             <button type="button" class="btn btn-primary retour"><a href=" {{ url("etablissements") }}" style="color : white">Retour</a></button>
             <h1>Commune {{ code_commune }}! ✅</h1>
+            <div id="prr" value="hola">hola</div>
+            <div id="lat" value="{{ etablissement[0].latitude }}"></div>
+            <div id="lon" value="{{ etablissement[0].longitude }}"></div>
+            <div id="nom" value="{{ etablissement[0].appellation_officielle }}"></div>
+
+            
+            <div id="map" style="height: 500px;"></div>
         </div>
     {% endblock %}
 {% endblock %}
+
