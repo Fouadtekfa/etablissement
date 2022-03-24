@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\CommentairesRepository;
+use App\Repository\EtablissementRepository;
+use Symfony\Config\DoctrineConfig;
 use App\Repository\ProductRepository;
 
 use App\Entity\Etablissement;
@@ -84,10 +87,15 @@ class EtablissementsController extends AbstractController
         ]);
     }
     #[Route('/etablissements/supprimer/{id}', name: 'etablissementsupprimer')]
-    public function etablissementsup(int $id,EntityManagerInterface $em): Response
+    public function etablissementsup($id , EntityManagerInterface $em): Response
     {
+        $com = $em->getRepository(Etablissement::class)->findOneBy([
+            'id'  => $id
+        ]);
 
-        return $this->redirectToRoute('etablissement');
+        $em->remove($com);
+        $em->flush();
+        return $this->redirectToRoute('etablissements');
     }
 
     // ============ COMMENTAIRES =======================
