@@ -44,7 +44,7 @@
                     <td><a href="{{ url('academie' , { id : etablissement.code_academie}) }}">{{ etablissement.academie}}</a></td>
                     <td>{{ etablissement.date_ouverture}}</td>
                     <td><button type="button" class="btn btn-primary modifier"><a href=" {{ url("etablissements") }}" style="color : white">Modifier</a></button>
-                    <button type="button" class="btn btn-primary supprimer"><a href=" {{ url("etablissements") }}" style="color : white">Supprimer</a></button></td>
+                    <button type="button" class="btn btn-primary supprimer"><a href=" {{ url("etablissementsupprimer", { id : etablissement.id  }) }}}" style="color : white">Supprimer</a></button></td>
                 </tr>
 
                 {% endfor %}

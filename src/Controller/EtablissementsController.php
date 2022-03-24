@@ -1,15 +1,22 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\ProductRepository;
 
 use App\Entity\Etablissement;
 use App\Entity\Commentaires;
 use http\Message\Body;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+
 use App\Form\UserType;
+
+use App\Controller\Request;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use Symfony\Component\HttpFoundation\Response;
+use App\Form\CommentairesType;
+
 
 class EtablissementsController extends AbstractController
 {
@@ -77,9 +84,61 @@ class EtablissementsController extends AbstractController
         ]);
     }
     #[Route('/etablissements/supprimer/{id}', name: 'etablissementsupprimer')]
-    public function etablissementsup($ta): Response
+    public function etablissementsup(int $id,EntityManagerInterface $em): Response
     {
 
+        return $this->redirectToRoute('etablissement');
+    }
+
+    // ============ COMMENTAIRES =======================
+
+        // Formulaire UPDATE
+        #[Route('/etablissement/{id_et}/commentaire/update/{id}', name: 'commentaireUpdate')]
+        public function commentaireUpdate(HttpFoundationRequest $request, $id_et, $id,  EntityManagerInterface $em): Response
+        {
+            $crud = $em->getRepository(Commentaires::class)->find($id);
+            $form = $this->createForm(CommentairesType::class, $crud);
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                $em->persist($crud);
+                $em->flush();
+
+                return $this->redirectToRoute('etablissement', [
+                    'id' => $id_et
+                ]);}
+
+            return $this->render('commentaires/updateComment.html.twig', [
+                'form'=> $form->createView(),
+                'etablissement'=> $id_et
+            ]);
+        }
+
+    
+        // Supprimer un commentaire    
+        #[Route('/etablissement/{id_et}/commentaire/supprimer/{id}', name: 'commentaireSupprimer')]
+        public function commentaireSupprimer($id_et, $id,  EntityManagerInterface $em): Response
+        {
+            $com = $em->getRepository(Commentaires::class)->findOneBy([
+                'id'  => $id
+            ]);
+            
+            $em->remove($com);
+            $em->flush();
+            return $this->redirectToRoute('etablissement', [
+                'id' => $id_et
+            ]);
+        }
+
+
+
+
+    #[Route('/commentaire/modifier/{id}', name: 'commentaireModifier')]
+    public function commentaireModifier($id): Response
+    {
+        return $this->render('/commune.html.twig', [
+            'code_commune' => $id,
+        ]);
     }
 
 }
