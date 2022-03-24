@@ -6,6 +6,7 @@ use App\Repository\CommentairesRepository;
 use App\Repository\EtablissementRepository;
 use Symfony\Config\DoctrineConfig;
 use App\Repository\ProductRepository;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 use App\Entity\Etablissement;
 use App\Entity\Commentaires;
@@ -117,8 +118,8 @@ class EtablissementsController extends AbstractController
                ->add('appellation_officielle')
                 ->add('denomination_principale')
                 ->add('secteur')
-                ->add('latitude')
-                ->add('longitude')
+                ->add('latitude',IntegerType::class)
+                ->add('longitude',IntegerType::class)
                 ->add('adresse')
                 ->add('departement')
                 ->add('code_departement')
@@ -131,11 +132,11 @@ class EtablissementsController extends AbstractController
                 ->getForm();
         $form->handleRequest($request);
 
-        if($form->isSubmitted()&& $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){
 
             $em->persist($etablissement);
             $em->flush();
-            return $this->redirectToRoute('etablissements/index.html.twig');
+            return $this->redirectToRoute('etablissements');
 
         }
         return $this->render('etablissements/createEtablissement.html.twig', [
@@ -149,6 +150,37 @@ class EtablissementsController extends AbstractController
     }
 
 
+
+  /*  #[Route('/etablissement/update/{id}', name: 'etablissementUpdate')]
+    public function commentaireUpdate(HttpFoundationRequest $request, $id,  EntityManagerInterface $em): Response
+    {
+        $crud = $em->getRepository(Commentaires::class)->find($id);
+        $form = $this->createForm(EtablissementType::class, $crud);
+
+        $crud->setDateCommentaire(new \DateTime());
+        $form = $this->createFormBuilder($crud)
+            ->add('auteur')
+            ->add('commentaire')
+            ->add('note')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($crud);
+            $em->flush();
+
+            return $this->redirectToRoute('etablissement', [
+                'id' => $id_et
+            ]);}
+
+        return $this->render('commentaires/updateComment.html.twig', [
+            'form'=> $form->createView(),
+            'etablissement'=> $id_et
+        ]);
+    }
+
+*/
     // ============ COMMENTAIRES =======================
 
         // Formulaire UPDATE
