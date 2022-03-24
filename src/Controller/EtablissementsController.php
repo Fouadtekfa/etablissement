@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\ProductRepository;
 
 use App\Entity\Etablissement;
 use App\Entity\Commentaires;
@@ -8,10 +9,14 @@ use http\Message\Body;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+
+use App\Form\UserType;
+
 use App\Controller\Request;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\CommentairesType;
+
 
 class EtablissementsController extends AbstractController
 {
@@ -77,6 +82,12 @@ class EtablissementsController extends AbstractController
         return $this->render('etablissements/commune.html.twig', [
             'code_commune' => $id,
         ]);
+    }
+    #[Route('/etablissements/supprimer/{id}', name: 'etablissementsupprimer')]
+    public function etablissementsup(int $id,EntityManagerInterface $em): Response
+    {
+
+        return $this->redirectToRoute('etablissement');
     }
 
     // ============ COMMENTAIRES =======================
