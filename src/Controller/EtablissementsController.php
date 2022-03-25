@@ -197,7 +197,7 @@ class EtablissementsController extends AbstractController
             $form = $this->createFormBuilder($crud)
                 ->add('auteur')
                 ->add('commentaire')
-                ->add('note')
+                ->add('note', RangeType::class, ['label'=>'Note', 'attr'=>['min'=>0, 'max'=>5, 'step'=>1]])
                 ->getForm();
             
             $form->handleRequest($request);
@@ -230,7 +230,7 @@ class EtablissementsController extends AbstractController
                 ->add('auteur')
                 //->add('date_commentaire')
                 ->add('commentaire')
-                ->add('note')
+                ->add('note', RangeType::class, ['label'=>'Note', 'attr'=>['min'=>0, 'max'=>5, 'step'=>0.1]])
                 //->setMethod("GET")
                 ->getForm();
 
