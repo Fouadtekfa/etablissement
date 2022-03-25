@@ -4,6 +4,9 @@ namespace App\Controller;
 use App\Form\EtablissementType;
 use App\Repository\CommentairesRepository;
 use App\Repository\EtablissementRepository;
+use Doctrine\DBAL\Types\DateType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Config\DoctrineConfig;
 use App\Repository\ProductRepository;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -118,8 +121,8 @@ class EtablissementsController extends AbstractController
                ->add('appellation_officielle')
                 ->add('denomination_principale')
                 ->add('secteur')
-                ->add('latitude',IntegerType::class)
-                ->add('longitude',IntegerType::class)
+                ->add('latitude',IntegerType::class, ['label'=>'Latitude', 'attr'=>['min'=> -90, 'max'=>90, 'step'=>0.1]] )
+                ->add('longitude',IntegerType::class, ['label'=>'Longitude', 'attr'=>['min'=>0, 'max'=>180, 'step'=>0.1]])
                 ->add('adresse')
                 ->add('departement')
                 ->add('code_departement')
