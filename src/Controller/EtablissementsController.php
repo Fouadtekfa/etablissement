@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Config\DoctrineConfig;
 use App\Repository\ProductRepository;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 use App\Entity\Etablissement;
@@ -120,7 +122,14 @@ class EtablissementsController extends AbstractController
         $form = $this->createFormBuilder($etablissement)
                ->add('appellation_officielle')
                 ->add('denomination_principale')
-                ->add('secteur')
+                ->add('secteur',ChoiceType::class, [
+                    'choices'  => [
+                        'public ' => 'public ',
+                        'privé' => 'privé',
+
+                    ],
+                ])
+
                 ->add('latitude',IntegerType::class, ['label'=>'Latitude', 'attr'=>['min'=> -90, 'max'=>90, 'step'=>0.1]] )
                 ->add('longitude',IntegerType::class, ['label'=>'Longitude', 'attr'=>['min'=>0, 'max'=>180, 'step'=>0.1]])
                 ->add('adresse')
