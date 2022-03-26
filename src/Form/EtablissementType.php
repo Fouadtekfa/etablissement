@@ -26,7 +26,7 @@ class EtablissementType extends AbstractType
             ->add('code_region')
             ->add('academie')
             ->add('code_academie')
-            ->add('date_ouverture')
+          //  ->add('date_ouverture')
         ;
     }
 

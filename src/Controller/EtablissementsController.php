@@ -5,6 +5,7 @@ use App\Form\EtablissementType;
 use App\Repository\CommentairesRepository;
 use App\Repository\EtablissementRepository;
 use Doctrine\DBAL\Types\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Config\DoctrineConfig;
@@ -37,7 +38,7 @@ class EtablissementsController extends AbstractController
     {
         $this->em = $em;
         $repostories = $em->getRepository(Etablissement::class)->findAll();
-        
+
         foreach($repostories as $cle => $re) {
             $re->date_ouverture = $re->date_ouverture->format('d/m/Y');
         }
@@ -57,7 +58,7 @@ class EtablissementsController extends AbstractController
         foreach($com as $cle => $c) {
             $c->date_commentaire = $c->date_commentaire->format('d/m/Y');
         }
-        
+
            return $this->render('etablissements/etablissement.html.twig', [
             'id_etablissement' => $id,
             'commentaire' => $com
@@ -163,36 +164,55 @@ class EtablissementsController extends AbstractController
 
 
 
-  /*  #[Route('/etablissement/update/{id}', name: 'etablissementUpdate')]
-    public function commentaireUpdate(HttpFoundationRequest $request, $id,  EntityManagerInterface $em): Response
+    #[Route('/etablissements/update/{id}', name: 'etablissementUpdate')]
+    public function etablissementUpdate(HttpFoundationRequest $request, $id,  EntityManagerInterface $em): Response
     {
-        $crud = $em->getRepository(Commentaires::class)->find($id);
-        $form = $this->createForm(EtablissementType::class, $crud);
+        $etablissement = $em->getRepository(Etablissement::class)->find($id);
+        $form = $this->createForm(EtablissementType::class, $etablissement);
+       // $etablissement->date_ouverture = $etablissement->date_ouverture->format('d/m/Y');
+        $etablissement->setDateOuverture(new \DateTime());
+        $form = $this->createFormBuilder($etablissement)
+            ->add('appellation_officielle')
+            ->add('denomination_principale')
+            ->add('secteur',ChoiceType::class, [
+                'choices'  => [
+                    'public ' => 'public ',
+                    'privé' => 'privé',
 
-        $crud->setDateCommentaire(new \DateTime());
-        $form = $this->createFormBuilder($crud)
-            ->add('auteur')
-            ->add('commentaire')
-            ->add('note')
+                ],
+            ])
+
+            ->add('latitude',IntegerType::class, ['label'=>'Latitude', 'attr'=>['min'=> -90, 'max'=>90, 'step'=>0.1]] )
+            ->add('longitude',IntegerType::class, ['label'=>'Longitude', 'attr'=>['min'=>0, 'max'=>180, 'step'=>0.1]])
+            ->add('adresse')
+            ->add('departement')
+            ->add('code_departement')
+            ->add('commune')
+            ->add('code_commune')
+            ->add('region')
+            ->add('code_region')
+            ->add('academie')
+            ->add('code_academie')
+        //    ->add('date_ouverture',)
             ->getForm();
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $em->persist($crud);
+            $em->persist($etablissement);
             $em->flush();
+            return $this->redirectToRoute('etablissements');
 
-            return $this->redirectToRoute('etablissement', [
-                'id' => $id_et
-            ]);}
+        }
+        return $this->render('etablissements/updateEtablissement.html.twig', [
+            'form'=> $form->createView()
 
-        return $this->render('commentaires/updateComment.html.twig', [
-            'form'=> $form->createView(),
-            'etablissement'=> $id_et
         ]);
+
+
+
     }
 
-*/
+
     // ============ COMMENTAIRES =======================
 
         // Formulaire UPDATE

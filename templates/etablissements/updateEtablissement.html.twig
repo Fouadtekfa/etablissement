@@ -1,0 +1,87 @@
+{% extends 'global.html.twig' %}
+
+{% block title %}
+    update etablissement
+{% endblock %}
+
+
+{% block body %}
+
+    {% block content %}
+        <div class="example-wrapper">
+            <button type="button" class="btn btn-primary retour"><a href=" {{ url('etablissements') }}" style="color : white">Retour</a></button>
+            <h1>modifier une etablissment</h1>
+            <div class="containerForm" id="formContainer">
+                <div class="contentContainerForm">
+
+                    {{ form_start(form)}}
+                    <div class="form-title form_input">
+                        {{ form_label(form.appellation_officielle)}} <br>
+                        {{ form_widget(form.appellation_officielle)}}
+                    </div>
+                    <div class="form-title form_input">
+                        {{ form_label(form.denomination_principale)}} <br>
+                        {{ form_widget(form.denomination_principale)}}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.secteur) }} <br>
+                        {{ form_widget(form.secteur) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.latitude) }} <br>
+                        {{ form_widget(form.latitude) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.longitude) }} <br>
+                        {{ form_widget(form.longitude) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.adresse) }} <br>
+                        {{ form_widget(form.adresse) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.departement) }} <br>
+                        {{ form_widget(form.departement) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.code_departement) }} <br>
+                        {{ form_widget(form.code_departement) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.commune) }} <br>
+                        {{ form_widget(form.commune) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.code_commune) }} <br>
+                        {{ form_widget(form.code_commune) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.region) }} <br>
+                        {{ form_widget(form.region) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.code_region) }} <br>
+                        {{ form_widget(form.code_region) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.academie) }} <br>
+                        {{ form_widget(form.academie) }}
+                    </div>
+                    <div class="form_content form_input">
+                        {{ form_label(form.code_academie) }} <br>
+                        {{ form_widget(form.code_academie) }}
+                    </div>
+
+
+                    <div class="submitContent form_input">
+                        <button>Submit</button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+
+    {% endblock %}
+{% endblock %}
