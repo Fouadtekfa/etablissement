@@ -91,9 +91,7 @@ class EtablissementsController extends AbstractController
     #[Route('/etablissements/{id_et}/commune/{id}', name: 'commune')]
     public function commune($id_et, $id, EntityManagerInterface $em): Response
     {
-        /*$etab = $em->getRepository(Etablissement::class)->findOneBy([
-            'id'  => $id_et
-        ]);*/
+        $etab = $em->getRepository(Etablissement::class)->find($id_et);
 
         $et = $em->getRepository(Etablissement::class)->findBy([
             'id'  => $id_et
@@ -102,7 +100,8 @@ class EtablissementsController extends AbstractController
 
         return $this->render('etablissements/commune.html.twig', [
             'code_commune' => $id,
-            'etablissement' => $et
+            'etablissement' => $et,
+            'etab'=>$etab
         ]);
     }
     #[Route('/etablissements/supprimer/{id}', name: 'etablissementsupprimer')]
