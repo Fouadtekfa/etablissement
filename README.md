@@ -4,7 +4,7 @@
 - TP : **Symfony**
 - version :**Symfony 6.0.6**
 <br>
-*exécution*
+exécution
 <br>
   composer install
   <br> 

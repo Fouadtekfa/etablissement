@@ -51,6 +51,7 @@ class EtablissementsController extends AbstractController
     #[Route('/etablissement/{id}', name: 'etablissement')]
     public function etablissement($id, EntityManagerInterface $em): Response
     {
+        $etab=$em->getRepository(Etablissement::class)->find($id);
         $com = $em->getRepository(Commentaires::class)->findBy([
             'etablissement'  => $id
         ]);
@@ -61,7 +62,8 @@ class EtablissementsController extends AbstractController
 
            return $this->render('etablissements/etablissement.html.twig', [
             'id_etablissement' => $id,
-            'commentaire' => $com
+            'commentaire' => $com,
+             'etab'=>$etab
         ]);
     }
 
